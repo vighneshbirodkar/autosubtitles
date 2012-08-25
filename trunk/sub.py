@@ -106,7 +106,7 @@ def lev_dist(s1,s2):
 ##### To remove unwanted characters from string
 def legalize(s):
     global settings
-    #s = s.lower()
+    s = s.upper()
     for i in settings['chars']:
         s = s.replace(i,' ')
     l = s.split()
