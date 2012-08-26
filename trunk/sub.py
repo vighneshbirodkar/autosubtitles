@@ -57,7 +57,7 @@ def get_file():
                         if(get_file.last_file[process.name] == f.path):
                             continue
                     get_file.last_file[process.name] = f.path
-                    return f.path
+                    return f.path.encode('ascii','ignore')
         except psutil.error.NoSuchProcess:
             pass
     
@@ -105,23 +105,25 @@ def lev_dist(s1,s2):
 
 ##### To remove unwanted characters from string
 def legalize(s):
+    #s=str(s)
     global settings
-    s = s.upper()
+    #s = s.lower()
     for i in settings['chars']:
         s = s.replace(i,' ')
     l = s.split()
     s = ''
+    s +=' ' + l[0]
 
-    for i in l:
+    for i in l[1:None]:
         # to remove digits from strings like Toy.Story.1996
         #while preserving sequel number like Toy.Story.2.2001
-        if(i[0] not in string.letters or i in settings['ext']):
-            if(len(i)==1 and i in string.digits):
-                s += ' ' + str(i)
-            else:
-                break
+        
+        if(i.isdigit() and len(i)==4):
+            break
+        elif(i in settings['ext']):
+            break
         else:
-            s += ' ' + str(i)
+            s += ' ' + i
 
     s = s[1:None]
     
