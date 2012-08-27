@@ -107,7 +107,7 @@ def lev_dist(s1,s2):
 def legalize(s):
     #s=str(s)
     global settings
-    #s = s.lower()
+    s = s.lower()
     for i in settings['chars']:
         s = s.replace(i,' ')
     l = s.split()
